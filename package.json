@@ -6,6 +6,7 @@
     "express": "~3.3.4",
     "jade": "*",
     "stylus": "*",
-    "nib": "*"
+    "nib": "*",
+    "firebase": "*"
   }
 }
