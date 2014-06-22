@@ -1,6 +1,7 @@
 var cfloApp = angular.module('cfloApp', ['ngRoute']);
 
 function makeid() {
+  return 'compare'
   var text = "";
   var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
@@ -34,7 +35,12 @@ cfloApp.config(function($routeProvider) {
     });
 });
 
-cfloApp.controller('pane', function($scope, $routeParams) {
+cfloApp.controller('pane', function($scope, $routeParams, $route, $window) {
+  setTimeout(function(){
+    // $route.reload();
+    // $window.location.reload();
+    // console.log('rel');
+  }, 5000);
   $scope.panes = [
     {name: 'master'}
   ]
@@ -123,7 +129,6 @@ cfloApp.controller('edit', function($scope, $routeParams) {
   });
 	$scope.editing = $routeParams['val'];
 	$scope.changeData = function(transaction) {
-    console.log('FUCK!');
     var date = (new Date().getFullYear())+'-'+(new Date().getMonth()+1)+'-'+(new Date().getDate())
     var data = {
      'loc': "transactions_" + $routeParams['val'],
@@ -143,6 +148,8 @@ cfloApp.controller('edit', function($scope, $routeParams) {
      'monthly_payment': $scope.trans.monthly_payment,
      'old_name_loc': $routeParams['trans']
     };
+    console.log('here data');
+    console.log(data);
      // post data for server to mod into firebase
      $.ajax({
        type: 'POST',
