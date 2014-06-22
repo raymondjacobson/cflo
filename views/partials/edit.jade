@@ -1,4 +1,33 @@
 h1 Editing {{editing}}
-button(ng-click="submitData()") submit
 button
   a(href='#/{{editing}}') back
+p
+  input(class='field' ng-model='trans.name' placeholder='transaction title')
+
+h2 Is it a recurring transaction?
+p
+  input(class='field' ng-model='trans.recurrance' placeholder='how often does it recur (days)?')
+p
+  input(class='field' ng-model='trans.delay_by' placeholder='credit, cash, or check?')
+p
+  input(class='field' ng-model='trans.amount' placeholder='how much is it for? (USD)')
+
+h2 Is it a loan?
+p
+  input(class='field' ng-model='trans.loan_principal' placeholder='principal amount')
+p
+  input(class='field' ng-model='trans.annual_rate' placeholder='annual rate')
+p
+  input(class='field' ng-model='trans.monthly_payment' placeholder='monthly payment')
+p
+  input(class='field' ng-model='trans.maturity_date' placeholder='maturity date')
+
+h2 Is it money owedto a supplier?
+p
+  input(class='field' ng-model='trans.amount' placeholder='how much do you owe?')
+p
+  input(class='field' ng-model='trans.terms' placeholder='what are the terms (ex: 2/10 n/30)')
+p
+  input(class='field' ng-model='trans.days' placeholder='days paid (between 0 and 30 inclusive)')
+button(ng-click="changeData(trans)" )
+  a(href='#/{{editing}}') submit
