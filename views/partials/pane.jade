@@ -6,9 +6,9 @@ div(class="row")
   div(ng-repeat="pane in panes" ng-hide="$first" class="box column six pane")
     h1 {{pane.name}}
     button(ng-click="removePane(pane.name)") x
-    button(ng-click="commitPane()") commit
+    button(ng-click="commitPane(pane.name)") commit
     button
-      a(href='#edit') Edit Transaction
+      a(href='#edit/{{pane.name}}') Edit Transaction
   div(class="box column six pane add" ng-click="addPane()") +
 div(class="row")
   div(class="box column twelve graph")

@@ -30,11 +30,61 @@ exports.index = function(req, res){
 
 exports.insert = function(req, res){
   var loc = req.body.loc
-  
+
   db_url = db_methods.getDBUrl();
   db_root = db_methods.establishConnection(db_url);
-  db_methods.insertTransaction(db_root, loc, {'name':'trans1', 'timestamp': '1'});
-  db_methods.insertTransaction(db_root, loc, {'name':'trans2', 'timestamp': '2'});
-  db_methods.insertTransaction(db_root, loc, {'name':'trans3', 'timestamp': '3'});
+  insert_data = {
+    'name': req.body.name,
+    'date': req.body.date,
+    'recurrance':  req.body.recurrance,
+    'end_recurrance': req.body.end_recurrance,
+    'amount': req.body.amount,
+    'delay_by': req.body.delay_by,
+    'terms': req.body.terms,
+    'days': req.body.days,
+    'loan_principal': req.body.loan_principal,
+    'annual_rate': req.body.annual_rate,
+    'maturity_date': req.body.maturity_date,
+    'monthly_payment': req.body.monthly_payment
+  }
+  db_methods.insertTransaction(db_root, loc, insert_data);
+  res.send('/ POST OK');
+}
+
+exports.copy = function(req, res){
+  db_url = db_methods.getDBUrl();
+  db_root = db_methods.establishConnection(db_url);
+  db_methods.copyMasterTransactions(db_root, req.body.ver);
+  res.send('/ POST OK');
+}
+
+exports.commit = function(req, res){
+  db_url = db_methods.getDBUrl();
+  db_root = db_methods.establishConnection(db_url);
+  db_methods.commitTransactions(db_root, req.body.ver);
+  res.send('/ POST OK');
+}
+
+exports.modify = function(req, res){
+  var loc = req.body.loc
+
+  db_url = db_methods.getDBUrl();
+  db_root = db_methods.establishConnection(db_url);
+  insert_data = {
+    'name': req.body.name,
+    'date': req.body.date,
+    'recurrance':  req.body.recurrance,
+    'end_recurrance': req.body.end_recurrance,
+    'amount': req.body.amount,
+    'delay_by': req.body.delay_by,
+    'terms': req.body.terms,
+    'days': req.body.days,
+    'loan_principal': req.body.loan_principal,
+    'annual_rate': req.body.annual_rate,
+    'maturity_date': req.body.maturity_date,
+    'monthly_payment': req.body.monthly_payment
+  }
+  db_methods.modifyTransaction(db_root, insert_data['name'],
+    insert_data['date'], insert_data);
   res.send('/ POST OK');
 }
