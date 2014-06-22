@@ -33,8 +33,13 @@ html, body
   background OFF_WHITE
   font-family 'Lato', Helvetica, sans-serif
 
-ul, ol
+ul
   list-style none
+  display inline-block
+  margin 0 0.5%
+  text-align center
+  width 100%
+  padding 0
 
 table
   text-align left
@@ -72,3 +77,24 @@ a, input[type=submit]
   transition color 0.2s linear
   &:hover
     color: darken(MUTE_ORANGE, 10%)
+
+header
+  margin 0 auto
+  width 100%
+  text-align center
+  height 40px
+
+footer
+  margin 0 auto
+  width 100%
+  text-align center
+
+
+// panes
+.pane
+  height 400px
+  background red
+
+// graph
+.graph
+  height 60%

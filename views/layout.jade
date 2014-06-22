@@ -1,5 +1,5 @@
 doctype html
-html(ng-app="myApp")
+html(ng-app="cfloApp")
   head
     meta(charset='utf8')
     base(href='/')
@@ -8,8 +8,14 @@ html(ng-app="myApp")
     link(rel='stylesheet', href='/styles/font-awesome.min.css')
     link(rel='stylesheet', href='/styles/main.css')
     link(rel='stylesheet', href='/styles/grid.css')
-  body
-    block content
+    script(src='/js/jquery.min.js')
+    script(src='/js/start.js')
+  body(ng-controller="PaneCtrl")
+    header
+      p &#162;flo
+    div(class="container")
+      block content
     script(src='/js/angular.min.js')
+    script(src='/js/controllers.js')
   footer
     p &copy; 2014 &#162;flo

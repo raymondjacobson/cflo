@@ -1,3 +1,8 @@
 extend layout
 block content
-  div(ng-view)
+  div(class="row")
+    div(ng-repeat="pane in panes" class="column six pane")
+      h1 {{pane.name}}
+    div(class="column six pane")
+      form(ng-submit="addPane()")
+        input(class="add" type="submit" value="+")

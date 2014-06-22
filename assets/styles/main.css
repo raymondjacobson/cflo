@@ -25,9 +25,13 @@ body {
   background: #fdfdfd;
   font-family: 'Lato', Helvetica, sans-serif;
 }
-ul,
-ol {
+ul {
   list-style: none;
+  display: inline-block;
+  margin: 0 0.5%;
+  text-align: center;
+  width: 100%;
+  padding: 0;
 }
 table {
   text-align: left;
@@ -74,4 +78,22 @@ input[type=submit] {
 a:hover,
 input[type=submit]:hover {
   color: #c15a45;
+}
+header {
+  margin: 0 auto;
+  width: 100%;
+  text-align: center;
+  height: 40px;
+}
+footer {
+  margin: 0 auto;
+  width: 100%;
+  text-align: center;
+}
+.pane {
+  height: 400px;
+  background: #f00;
+}
+.graph {
+  height: 60%;
 }
