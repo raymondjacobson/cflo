@@ -1,6 +1,7 @@
 var cfloApp = angular.module('cfloApp', ['ngRoute']);
 
 function makeid() {
+  return 'compare'
   var text = "";
   var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
@@ -34,10 +35,16 @@ cfloApp.config(function($routeProvider) {
     });
 });
 
-cfloApp.controller('pane', function($scope, $routeParams) {
+cfloApp.controller('pane', function($scope, $routeParams, $route, $window) {
+  setTimeout(function(){
+    // $route.reload();
+    // $window.location.reload();
+    // console.log('rel');
+  }, 5000);
   $scope.panes = [
     {name: 'master'}
   ]
+  $scope.current_cash = '1000'
 	if ($routeParams['val']){
 		$scope.panes.push({name: $routeParams['val']});
 	}
@@ -85,12 +92,12 @@ cfloApp.controller('add', function($scope, $routeParams) {
   });
 
 	$scope.insertData = function(transaction) {
-		var seconds = new Date().getTime() / 1000;
+		var date = (new Date().getFullYear())+'-'+(new Date().getMonth()+1)+'-'+(new Date().getDate())
 		var data = {
-      'old_name_loc': $scope.trans.name + "_" + Math.floor(seconds),
+      'old_name_loc': $scope.trans.name + "_" + date,
 			'loc': "transactions_master",
 			'name': $scope.trans.name,
-			'date': Math.floor(seconds),
+			'date': date,
 			'recurrance': $scope.trans.recurrance,
 			'end_recurrance': '-1',
 
@@ -123,12 +130,11 @@ cfloApp.controller('edit', function($scope, $routeParams) {
   });
 	$scope.editing = $routeParams['val'];
 	$scope.changeData = function(transaction) {
-    console.log('FUCK!');
-    var seconds = new Date().getTime() / 1000;
+    var date = (new Date().getFullYear())+'-'+(new Date().getMonth()+1)+'-'+(new Date().getDate())
     var data = {
      'loc': "transactions_" + $routeParams['val'],
      'name': $scope.trans.name,
-     'date': Math.floor(seconds),
+     'date': date,
      'recurrance': $scope.trans.recurrance,
      'end_recurrance': '-1',
 
@@ -143,6 +149,8 @@ cfloApp.controller('edit', function($scope, $routeParams) {
      'monthly_payment': $scope.trans.monthly_payment,
      'old_name_loc': $routeParams['trans']
     };
+    console.log('here data');
+    console.log(data);
      // post data for server to mod into firebase
      $.ajax({
        type: 'POST',

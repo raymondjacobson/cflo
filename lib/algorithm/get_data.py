@@ -1,6 +1,7 @@
 def getFirebaseAsDict():
-  firebase_url = 'https://asdfg.firebaseio.com'
+  firebase_url = 'https://cflo-sbd.firebaseio.com'
   from firebase import firebase
   firebase = firebase.FirebaseApplication(firebase_url, None)
-  result = firebase.get('/users', None)
-  return result
+  result = firebase.get('/transactions_master', None)
+  result2 = firebase.get('/transactions_compare', None)
+  return [result, result2]

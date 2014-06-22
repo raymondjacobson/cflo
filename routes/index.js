@@ -3,7 +3,7 @@ var caller = require('../lib/caller.js');
 
 exports.index = function(req, res){
   // Call python to process data
-  caller.processData();
+  var output = caller.processData();
 
   // Return to index
   res.render('index', {
@@ -79,7 +79,7 @@ exports.getTrans = function(req, res){
 }
 
 exports.modify = function(req, res){
-  var loc = req.body.loc
+  var loc = req.body.loc;
 
   db_url = db_methods.getDBUrl();
   db_root = db_methods.establishConnection(db_url);
