@@ -191,5 +191,11 @@ $(document).ready(function(){
       });
     });
   }
-  generateGraph();
+  // var loci = $(location).attr('href').split('/');
+  // console.log(loci);
+  // if(loci[loci.length - 1] == '' || loci[loci.length - 1] == '#' || loci[loci.length - 1] == 'compare'){
+    //$('.attack').append('<div class="box column twelve graph"></div>');
+    //$('.box').append('<canvas id="myChart" width="940px" height="480px"></canvas>');
+    generateGraph();
+  //}
 });

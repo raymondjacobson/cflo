@@ -77,46 +77,74 @@ def make_output(list, dest_file):
       spTerms = terms.split('/')
       spTerms[1] = (spTerms[1].split(' '))[0]
       if (days >= 0 and days <= int(spTerms[1])):
-        print 'discount'
         discount = float(amt)*(float(spTerms[0])/100)
-
-        for j in range(loc,loc+days-1):
+        for j in range(loc,len(d3)):
           d3Values = (d3[j]).split(',')
-          curVal = int(d3Values[0])
-          accPay = int(d3Values[2])
-          accPay+=abs(amt)
-          new = (d3Values[0] + ',' + d3Values[1] + ',' + str(accPay))
-          d3[j] = new
+          new = (d3Values[0] + ',' + d3Values[1] + ',' + str(0));
+          d3[j] = new;
 
 
+          #print 'LOCATION ' + str(loc + days)
         for j in range(loc+days-1,len(d3)):
           d3Values = (d3[j]).split(',')
+          #print 'AMOUNT REDUCED: ' + str(amt - discount)
           curVal = int(d3Values[0])
-          accPay = int(float(d3Values[2]))
-          accPay+=abs(amt)
-          new = (str(curVal + (amt-discount))+ ',' + d3Values[1] + ',' + str(accPay-abs(amt)))
+          new = (str(curVal + (amt-discount))+ ',' + d3Values[1] + ',' + str(0-abs(amt)))
+          d3[j] = new;
 
-
-        print d3
 
       elif days > 10:
-        print 'no discount'
-
         for j in range(loc,loc+days-1):
           d3Values = (d3[j]).split(',')
-          new = (d3Values[0] + ',' + d3Values[1] + ',' + str(accPay))
-          d3[j] = new
-
-		     #Add to A/P until delay date
-        counts2 = 0
-        for j in range(loc+days-1,len(d3)):
-          counts2 +=1
-          print 'counts2: ' + str(counts2)
-          d3Values = (d3[j]).split(',')
-          curVal = int(d3Values[0]) + amt
-          new = (str(curVal) + ',' + d3Values[1] + ',' + str(accPay - abs(amt)))
-          d3[j] = new
-        print d3
+          accPay = abs(amt)
+          new = (d3Values[0] + ',' + d3Values[1] + ',' + str(0));
+          d3[j] = new;
+        curVal = abs(int(d3Values[0])) + amt
+        #Add to A/P until delay date
+        for z in range(loc+days-1,len(d3)):
+          d3Values = (d3[z]).split(',')
+          new = (str(int(d3Values[0]) + amt) + ',' + d3Values[1] + ',' + '0')
+          d3[z] = new
+      #   print 'discount'
+      #   discount = float(amt)*(float(spTerms[0])/100)
+      #
+      #   for j in range(loc,loc+days-1):
+      #     d3Values = (d3[j]).split(',')
+      #     curVal = int(d3Values[0])
+      #     accPay = int(d3Values[2])
+      #     accPay+=abs(amt)
+      #     new = (d3Values[0] + ',' + d3Values[1] + ',' + str(accPay))
+      #     d3[j] = new
+      #
+      #
+      #   for j in range(loc+days-1,len(d3)):
+      #     d3Values = (d3[j]).split(',')
+      #     curVal = int(d3Values[0])
+      #     accPay = int(float(d3Values[2]))
+      #     accPay+=abs(amt)
+      #     new = (str(curVal + (amt-discount))+ ',' + d3Values[1] + ',' + str(accPay-abs(amt)))
+      #
+      #
+      #   # print d3
+      #
+      # elif days > 10:
+      #   print 'no discount'
+      #
+      #   for j in range(loc,loc+days-1):
+      #     d3Values = (d3[j]).split(',')
+      #     new = (d3Values[0] + ',' + d3Values[1] + ',' + str(accPay))
+      #     d3[j] = new
+      #
+		  #    #Add to A/P until delay date
+      #   counts2 = 0
+      #   for j in range(loc+days-1,len(d3)):
+      #     counts2 +=1
+      #     # print 'counts2: ' + str(counts2)
+      #     d3Values = (d3[j]).split(',')
+      #     curVal = int(d3Values[0]) + amt
+      #     new = (str(curVal) + ',' + d3Values[1] + ',' + str(accPay - abs(amt)))
+      #     d3[j] = new
+        # print d3
     else:
       if delay == 0:																	#Cash payement non recurring
         if (recurrance) == 0:
@@ -139,7 +167,7 @@ def make_output(list, dest_file):
 
             for j in range (start,next):
               d3Values = (d3[j]).split(',')
-              curVal = int(d3Values[0]) + amt
+              curVal = int(float(d3Values[0]) + amt)
               new = (str(curVal) + ',' + d3Values[1] + ',' + d3Values[2])
               d3[j] = new
 
@@ -149,9 +177,9 @@ def make_output(list, dest_file):
           if start < len(d3):
             for j in range(start,len(d3)):
               counts+=1
-              print counts
+              # print counts
               d3Values = (d3[j]).split(',')
-              curVal = int(d3Values[0]) + amt
+              curVal = int(float(d3Values[0]) + amt)
               new = (str(curVal) + ',' + d3Values[1] + ',' + d3Values[2])
               d3[j] = new
 

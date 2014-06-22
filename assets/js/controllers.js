@@ -44,6 +44,7 @@ cfloApp.controller('pane', function($scope, $routeParams, $route, $window) {
   $scope.panes = [
     {name: 'master'}
   ]
+  $scope.current_cash = '1000'
 	if ($routeParams['val']){
 		$scope.panes.push({name: $routeParams['val']});
 	}

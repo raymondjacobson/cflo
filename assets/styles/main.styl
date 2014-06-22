@@ -6,7 +6,7 @@ OFF_WHITE = #FDFDFD
 COFFEE_BROWN = #603920
 MUTE_ORANGE = #C86D5B
 BLUE = #85A0D6
-RED = lighten(#7A292E, 20%)
+RED = lighten(#245f30, 20%)
 LIGHT_RED = #C45A5E
 
 // greater movements
@@ -161,10 +161,16 @@ canvas
   -o-transition 0.3s linear
   transition 0.3s linear
   cursor pointer
-  font-size 230px
+  p
+    margin 0
+    padding 0
+    font-size 200px
+  small
+    font-size 20px
   &:hover
     background darken(BLUE, 10%)
-    color lighten(BLUE, 40%)
+    p, small
+      color lighten(BLUE, 40%)
 
 .add a
   margin 0
