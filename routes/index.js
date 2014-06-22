@@ -3,7 +3,7 @@ var caller = require('../lib/caller.js');
 
 exports.index = function(req, res){
   // Call python to process data
-  caller.processData();
+  var output = caller.processData();
 
   // Return to index
   res.render('index', {

@@ -85,12 +85,12 @@ cfloApp.controller('add', function($scope, $routeParams) {
   });
 
 	$scope.insertData = function(transaction) {
-		var seconds = new Date().getTime() / 1000;
+		var date = (new Date().getFullYear())+'-'+(new Date().getMonth()+1)+'-'+(new Date().getDate())
 		var data = {
-      'old_name_loc': $scope.trans.name + "_" + Math.floor(seconds),
+      'old_name_loc': $scope.trans.name + "_" + date,
 			'loc': "transactions_master",
 			'name': $scope.trans.name,
-			'date': Math.floor(seconds),
+			'date': date,
 			'recurrance': $scope.trans.recurrance,
 			'end_recurrance': '-1',
 
@@ -124,11 +124,11 @@ cfloApp.controller('edit', function($scope, $routeParams) {
 	$scope.editing = $routeParams['val'];
 	$scope.changeData = function(transaction) {
     console.log('FUCK!');
-    var seconds = new Date().getTime() / 1000;
+    var date = (new Date().getFullYear())+'-'+(new Date().getMonth()+1)+'-'+(new Date().getDate())
     var data = {
      'loc': "transactions_" + $routeParams['val'],
      'name': $scope.trans.name,
-     'date': Math.floor(seconds),
+     'date': date,
      'recurrance': $scope.trans.recurrance,
      'end_recurrance': '-1',
 
