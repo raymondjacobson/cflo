@@ -5,17 +5,18 @@ html(ng-app="cfloApp")
     base(href='/')
     title &#162;flo #{title}
     link(rel='stylesheet', href='/styles/type.css')
-    link(rel='stylesheet', href='/styles/font-awesome.min.css')
+    link(rel='stylesheet', href='http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css')
     link(rel='stylesheet', href='/styles/main.css')
     link(rel='stylesheet', href='/styles/grid.css')
     script(src='/js/jquery.min.js')
-    script(src='/js/start.js')
-  body(ng-controller="PaneCtrl")
+  body
     header
-      p &#162;flo
+      a(href='#')
+        h1 &#162;flo
     div(class="container")
       block content
     script(src='/js/angular.min.js')
+    script(src='/js/angular-route.js')
     script(src='/js/controllers.js')
   footer
     p &copy; 2014 &#162;flo

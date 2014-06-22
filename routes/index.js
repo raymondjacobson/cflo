@@ -27,3 +27,14 @@ exports.index = function(req, res){
     transaction_values: [100, 101, 102, 50]
   });
 };
+
+exports.insert = function(req, res){
+  var loc = req.body.loc
+  
+  db_url = db_methods.getDBUrl();
+  db_root = db_methods.establishConnection(db_url);
+  db_methods.insertTransaction(db_root, loc, {'name':'trans1', 'timestamp': '1'});
+  db_methods.insertTransaction(db_root, loc, {'name':'trans2', 'timestamp': '2'});
+  db_methods.insertTransaction(db_root, loc, {'name':'trans3', 'timestamp': '3'});
+  res.send('/ POST OK');
+}
