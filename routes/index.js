@@ -65,6 +65,31 @@ exports.commit = function(req, res){
   res.send('/ POST OK');
 }
 
+exports.get = function(req, res){
+  db_url = db_methods.getDBUrl();
+  db_root = db_methods.establishConnection(db_url);
+  var transactions_masterRef = db_root.child('transactions_' + req.query.ver);
+  transactions_masterRef.once('value', function(snapshot){
+    transactions_master = snapshot.val();
+    if(transactions_master != null) {
+      res.send(transactions_master);
+    }
+  });
+}
+
+exports.getTrans = function(req, res){
+  db_url = db_methods.getDBUrl();
+  db_root = db_methods.establishConnection(db_url);
+  var transactions_masterRef = db_root.child('transactions_' + req.query.ver);
+  transactions_masterRef = transactions_masterRef.child(req.query.trans);
+  transactions_masterRef.once('value', function(snapshot){
+    transactions_master = snapshot.val();
+    if(transactions_master != null) {
+      res.send(transactions_master);
+    }
+  });
+}
+
 exports.modify = function(req, res){
   var loc = req.body.loc
 
@@ -84,7 +109,7 @@ exports.modify = function(req, res){
     'maturity_date': req.body.maturity_date,
     'monthly_payment': req.body.monthly_payment
   }
-  db_methods.modifyTransaction(db_root, insert_data['name'],
+  db_methods.modifyTransaction(db_root, loc, insert_data['name'],
     insert_data['date'], insert_data);
   res.send('/ POST OK');
 }

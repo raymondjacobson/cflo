@@ -57,8 +57,9 @@ h1 {
 }
 h2,
 label {
-  margin: 10px 0 40px 0;
-  font-weight: 200;
+  margin: 40px 0 10px 0;
+  font-weight: 300;
+  color: #999;
   text-transform: uppercase;
 }
 a {
@@ -92,6 +93,32 @@ button:hover {
 }
 button:hover a {
   color: #9db3de;
+}
+input {
+  width: 400px;
+  font-weight: 200;
+  padding: 5px;
+  border: 2px solid #85a0d6;
+  background: none;
+  font-size: 16px;
+  color: #85a0d6;
+  outline: none;
+}
+input:focus {
+  border: 2px solid #9db3de;
+  color: #9db3de;
+}
+::-webkit-input-placeholder {
+  color: #bbb;
+}
+:-moz-placeholder {
+  color: #bbb;
+}
+::-moz-placeholder {
+  color: #bbb;
+}
+:-ms-input-placeholder {
+  color: #bbb;
 }
 header {
   margin: 0 auto 20px 0;

@@ -26,8 +26,11 @@ app.use(express.static(__dirname + '/assets'))
 
 app.get('/', routes.index);
 app.post('/insert', routes.insert);
+app.post('/modify', routes.insert);
 app.post('/copy', routes.copy);
 app.post('/commit', routes.commit);
+app.get('/get', routes.get);
+app.get('/getTrans', routes.getTrans);
 app.get('/partials/:name', function (req, res) {
     var name = req.params.name;
     res.render('partials/' + name);

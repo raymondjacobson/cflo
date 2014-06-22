@@ -16,9 +16,13 @@ cfloApp.config(function($routeProvider) {
       templateUrl: 'partials/add',
       controller: 'add'
     })
-    .when('/edit/:val', {
+    .when('/edit/:val/:trans/', {
       templateUrl: 'partials/edit',
       controller: 'edit'
+    })
+    .when('/edit/:val/', {
+      templateUrl: 'partials/edit-list',
+      controller: 'add'
     })
 		.when('/:val', {
 			templateUrl: 'partials/pane',
@@ -34,7 +38,6 @@ cfloApp.controller('pane', function($scope, $routeParams) {
   $scope.panes = [
     {name: 'master'}
   ]
-	console.log($routeParams);
 	if ($routeParams['val']){
 		$scope.panes.push({name: $routeParams['val']});
 	}
@@ -69,26 +72,36 @@ cfloApp.controller('pane', function($scope, $routeParams) {
   }
 });
 
-cfloApp.controller('add', function($scope) {
-	console.log('add transaction');
-	$scope.submitData = function() {
+cfloApp.controller('add', function($scope, $routeParams) {
+	console.log('add/edit transaction');
+  $scope.trans = {};
+  $scope.editing = $routeParams['val'];
+  $scope.trans_list = {};
+  $.get('/get', {'ver': $routeParams['val']} )
+  .done(function( data ) {
+    $scope.trans_list = data
+    console.log($scope.trans_list);
+    $scope.$apply();
+  });
+
+	$scope.insertData = function(transaction) {
 		var seconds = new Date().getTime() / 1000;
 		var data = {
 			'loc': "transactions_master",
-			'name': "milk",
+			'name': $scope.trans.name,
 			'date': Math.floor(seconds),
-			'recurrance': '7',
-			'end_recurrance': '$',
+			'recurrance': $scope.trans.recurrance,
+			'end_recurrance': '-1',
 
-			'amount': '-50',
-			'delay_by': '-1',
-			'terms': '2/10 n/30',
-			'days': '15',
+			'amount': $scope.trans.amount,
+			'delay_by': $scope.trans.delay_by,
+			'terms': $scope.trans.terms,
+			'days': $scope.trans.days,
 
-			'loan_principal': '10000',
-			'annual_rate': '2015-12-15',
-			'maturity_date': '2015-12-15',
-			'monthly_payment': '5234'
+			'loan_principal': $scope.trans.principal,
+			'annual_rate': $scope.trans.annual,
+			'maturity_date': $scope.trans.maturity,
+			'monthly_payment': $scope.trans.monthly
 		};
 		// post data for server to insert into firebase
 		$.ajax({
@@ -101,33 +114,38 @@ cfloApp.controller('add', function($scope) {
 });
 
 cfloApp.controller('edit', function($scope, $routeParams) {
+  $scope.trans = {};
+  $.get('/getTrans', {'ver': $routeParams['val'], 'trans': $routeParams['trans']} )
+  .done(function( data ) {
+    $scope.trans = data
+    $scope.$apply();
+  });
 	$scope.editing = $routeParams['val'];
-	console.log('edit transaction');
-	$scope.submitData = function() {
-		var seconds = new Date().getTime() / 1000;
-		var data = {
-			'loc': "transactions_" + $routeParams['val'],
-			'name': "milk",
-			'date': Math.floor(seconds),
-			'recurrance': '7',
-			'end_recurrance': '$',
+	$scope.changeData = function() {
+   var seconds = new Date().getTime() / 1000;
+   var data = {
+       'loc': "transactions_" + $routeParams['val'],
+       'name': $scope.trans.name,
+       'date': Math.floor(seconds),
+       'recurrance': $scope.trans.recurrance,
+       'end_recurrance': '-1',
 
-			'amount': '-50',
-			'delay_by': '-1',
-			'terms': '2/10 n/30',
-			'days': '15',
+       'amount': $scope.trans.amount,
+       'delay_by': $scope.trans.delay_by,
+       'terms': $scope.trans.terms,
+       'days': $scope.trans.days,
 
-			'loan_principal': '10000',
-			'annual_rate': '2015-12-15',
-			'maturity_date': '2015-12-15',
-			'monthly_payment': '5234'
-		};
-		// post data for server to insert into firebase
-		$.ajax({
-			type: 'POST',
-			data: JSON.stringify(data),
-			contentType: 'application/json',
-			url: '/insert'
-		});
-	}
+       'loan_principal': $scope.trans.principal,
+       'annual_rate': $scope.trans.annual,
+       'maturity_date': $scope.trans.maturity,
+       'monthly_payment': $scope.trans.monthly
+     };
+     // post data for server to insert into firebase
+     $.ajax({
+       type: 'POST',
+       data: JSON.stringify(data),
+       contentType: 'application/json',
+       url: '/modify'
+     });
+   }
 });
