@@ -7,7 +7,6 @@
     "jade": "*",
     "stylus": "*",
     "nib": "*",
-    "firebase": "*",
-    "python-shell": "*"
+    "firebase": "*"
   }
 }
