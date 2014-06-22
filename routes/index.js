@@ -14,6 +14,8 @@ exports.index = function(req, res){
 
   db_methods.getTransactions(db_root);
 
+  db_methods.copyMasterTransactions(db_root, 'abc');
+
   // Call python to process data
   caller.processData();
 
