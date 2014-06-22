@@ -1,15 +1,18 @@
 doctype html
-html(ng-app="myApp")
+html(ng-app="cfloApp")
   head
     meta(charset='utf8')
     base(href='/')
     title &#162;flo #{title}
     link(rel='stylesheet', href='/styles/type.css')
-    link(rel='stylesheet', href='/styles/font-awesome.min.css')
+    link(rel='stylesheet', href='http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css')
     link(rel='stylesheet', href='/styles/main.css')
     link(rel='stylesheet', href='/styles/grid.css')
+    script(src='/js/jquery.min.js')
   body
     block content
     script(src='/js/angular.min.js')
+    script(src='/js/angular-route.js')
+    script(src='/js/controllers.js')
   footer
     p &copy; 2014 &#162;flo
