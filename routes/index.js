@@ -2,20 +2,6 @@ var db_methods = require('../lib/db_methods.js');
 var caller = require('../lib/caller.js');
 
 exports.index = function(req, res){
-  // Set up firebase connection
-  // db_url = db_methods.getDBUrl();
-  // db_root = db_methods.establishConnection(db_url);
-  // db_methods.insertTransaction(db_root, {'name':'trans1', 'timestamp': '1'});
-  // db_methods.insertTransaction(db_root, {'name':'trans2', 'timestamp': '2'});
-  // db_methods.insertTransaction(db_root, {'name':'trans3', 'timestamp': '3'});
-  //
-  // db_methods.modifyTransaction(db_root, 'trans1', '1',
-  //   {'data': 'data'});
-  //
-  // db_methods.getTransactions(db_root);
-  //
-  // db_methods.copyMasterTransactions(db_root, 'abc');
-
   // Call python to process data
   caller.processData();
 
@@ -29,11 +15,13 @@ exports.index = function(req, res){
 };
 
 exports.insert = function(req, res){
+  console.log('ins');
   var loc = req.body.loc
 
   db_url = db_methods.getDBUrl();
   db_root = db_methods.establishConnection(db_url);
   insert_data = {
+    'old_name_loc': req.body.old_name_loc,
     'name': req.body.name,
     'date': req.body.date,
     'recurrance':  req.body.recurrance,
@@ -47,7 +35,7 @@ exports.insert = function(req, res){
     'maturity_date': req.body.maturity_date,
     'monthly_payment': req.body.monthly_payment
   }
-  db_methods.insertTransaction(db_root, loc, insert_data);
+  db_methods.insertTransaction(db_root, loc, insert_data['old_name_loc'], insert_data);
   res.send('/ POST OK');
 }
 
@@ -96,6 +84,7 @@ exports.modify = function(req, res){
   db_url = db_methods.getDBUrl();
   db_root = db_methods.establishConnection(db_url);
   insert_data = {
+    'old_name_loc': req.body.old_name_loc,
     'name': req.body.name,
     'date': req.body.date,
     'recurrance':  req.body.recurrance,
@@ -109,7 +98,7 @@ exports.modify = function(req, res){
     'maturity_date': req.body.maturity_date,
     'monthly_payment': req.body.monthly_payment
   }
-  db_methods.modifyTransaction(db_root, loc, insert_data['name'],
-    insert_data['date'], insert_data);
+  // console.log(db_root, loc, insert_data['old_name_loc'], insert_data);
+  db_methods.modifyTransaction(db_root, loc, insert_data['old_name_loc'], insert_data);
   res.send('/ POST OK');
 }

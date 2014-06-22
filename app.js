@@ -26,7 +26,7 @@ app.use(express.static(__dirname + '/assets'))
 
 app.get('/', routes.index);
 app.post('/insert', routes.insert);
-app.post('/modify', routes.insert);
+app.post('/modify', routes.modify);
 app.post('/copy', routes.copy);
 app.post('/commit', routes.commit);
 app.get('/get', routes.get);

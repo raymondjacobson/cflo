@@ -87,6 +87,7 @@ cfloApp.controller('add', function($scope, $routeParams) {
 	$scope.insertData = function(transaction) {
 		var seconds = new Date().getTime() / 1000;
 		var data = {
+      'old_name_loc': $scope.trans.name + "_" + Math.floor(seconds),
 			'loc': "transactions_master",
 			'name': $scope.trans.name,
 			'date': Math.floor(seconds),
@@ -98,10 +99,10 @@ cfloApp.controller('add', function($scope, $routeParams) {
 			'terms': $scope.trans.terms,
 			'days': $scope.trans.days,
 
-			'loan_principal': $scope.trans.principal,
-			'annual_rate': $scope.trans.annual,
-			'maturity_date': $scope.trans.maturity,
-			'monthly_payment': $scope.trans.monthly
+			'loan_principal': $scope.trans.loan_principal,
+			'annual_rate': $scope.trans.annual_rate,
+			'maturity_date': $scope.trans.maturity_date,
+			'monthly_payment': $scope.trans.monthly_payment
 		};
 		// post data for server to insert into firebase
 		$.ajax({
@@ -121,26 +122,28 @@ cfloApp.controller('edit', function($scope, $routeParams) {
     $scope.$apply();
   });
 	$scope.editing = $routeParams['val'];
-	$scope.changeData = function() {
-   var seconds = new Date().getTime() / 1000;
-   var data = {
-       'loc': "transactions_" + $routeParams['val'],
-       'name': $scope.trans.name,
-       'date': Math.floor(seconds),
-       'recurrance': $scope.trans.recurrance,
-       'end_recurrance': '-1',
+	$scope.changeData = function(transaction) {
+    console.log('FUCK!');
+    var seconds = new Date().getTime() / 1000;
+    var data = {
+     'loc': "transactions_" + $routeParams['val'],
+     'name': $scope.trans.name,
+     'date': Math.floor(seconds),
+     'recurrance': $scope.trans.recurrance,
+     'end_recurrance': '-1',
 
-       'amount': $scope.trans.amount,
-       'delay_by': $scope.trans.delay_by,
-       'terms': $scope.trans.terms,
-       'days': $scope.trans.days,
+     'amount': $scope.trans.amount,
+     'delay_by': $scope.trans.delay_by,
+     'terms': $scope.trans.terms,
+     'days': $scope.trans.days,
 
-       'loan_principal': $scope.trans.principal,
-       'annual_rate': $scope.trans.annual,
-       'maturity_date': $scope.trans.maturity,
-       'monthly_payment': $scope.trans.monthly
-     };
-     // post data for server to insert into firebase
+     'loan_principal': $scope.trans.loan_principal,
+     'annual_rate': $scope.trans.annual_rate,
+     'maturity_date': $scope.trans.maturity_date,
+     'monthly_payment': $scope.trans.monthly_payment,
+     'old_name_loc': $routeParams['trans']
+    };
+     // post data for server to mod into firebase
      $.ajax({
        type: 'POST',
        data: JSON.stringify(data),

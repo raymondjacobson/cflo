@@ -1,4 +1,7 @@
 h1 Editing {{editing}}'s transactions:
 div(ng-repeat="trans in trans_list")
-  h2
-    a(href='#/edit/{{editing}}/{{trans["name"]+"_"+trans["date"]}}') {{trans['name']}}
+  ol
+    h2
+      a(href='#/edit/{{editing}}/{{trans["old_name_loc"]}}')
+        {{trans['name']}}
+      small  for {{trans['amount']}}
